@@ -11,7 +11,7 @@ using System.Text;
 using System.Web;
 
 /// <summary>
-/// 세틀뱅크 PG 유틸리티 클래스
+/// 헥토파이낸셜 PG 유틸리티 클래스
 /// </summary>
 public class SettleUtil
 {
@@ -25,11 +25,11 @@ public class SettleUtil
 
     /**
     ===== MID(상점아이디) =====
-    상점아이디는 세틀뱅크에서 상점으로 발급하는 상점의 고유한 식별자입니다.
+    상점아이디는 헥토파이낸셜에서 상점으로 발급하는 상점의 고유한 식별자입니다.
     테스트환경에서의 MID는 다음과 같습니다.
         nxca_jt_gu : 구인증 결제(카드번호, 유효기간, 생년월일, 카드비번)
         nxca_jt_bi : 비인증 결제(카드번호, 유효기간)
-    상용서비스시에는 세틀뱅크에서 발급한 상점 고유 MID를 설정하십시오.
+    상용서비스시에는 헥토파이낸셜에서 발급한 상점 고유 MID를 설정하십시오.
     */
         private const string _PG_MID = "nxca_jt_bi";
 
@@ -39,7 +39,7 @@ public class SettleUtil
         ===== 라이센스키 =====  
         회원사 mid당 하나의 라이센스키가 발급되며 SHA256 해시체크 용도로 사용됩니다. 이 값은 외부에 노출되어서는 안 됩니다.
         테스트환경에서는 ST1009281328226982205 값을 사용하시면 되며,
-        상용서비스시에는 세틀뱅크에서 발급한 상점 고유 라이센스키를 설정하십시오.
+        상용서비스시에는 헥토파이낸셜에서 발급한 상점 고유 라이센스키를 설정하십시오.
     */
     private const string _LICENSE_KEY = "ST1009281328226982205";
 
@@ -49,7 +49,7 @@ public class SettleUtil
         ===== AES256 암호화 키 =====    
         파라미터 AES256암/복호화에 사용되는 키 입니다. 이 값은 외부에 노출되어서는 안 됩니다.
         테스트환경에서는 pgSettle30y739r82jtd709yOfZ2yK5K를 사용하시면 됩니다.
-        상용서비스시에는 세틀뱅크에서 발급한 상점 고유 암호화키를 설정하십시오.
+        상용서비스시에는 헥토파이낸셜에서 발급한 상점 고유 암호화키를 설정하십시오.
     */
     private const string _AES256_KEY = "pgSettle30y739r82jtd709yOfZ2yK5K";
 
@@ -57,7 +57,7 @@ public class SettleUtil
 
     /**
     *   ===== 결제/취소 서버 URL =====
-    *   세틀뱅크 결제/취소 서버 URL입니다. 이 값은 변경하지 마십시오. 
+    *   헥토파이낸셜 결제/취소 서버 URL입니다. 이 값은 변경하지 마십시오.
     *   필요에 따라 주석 on/off 하여 사용하십시오.
     */
     private const string _SERVER_URL = "https://tbgw.settlebank.co.kr";//테스트서버 url
@@ -66,7 +66,7 @@ public class SettleUtil
 
 
 
-    /** 세틀뱅크 API통신 타임아웃 설정(ms) */
+    /** 헥토파이낸셜 API통신 타임아웃 설정(ms) */
     private const int _TIMEOUT = 25000;
 
 
@@ -250,28 +250,40 @@ public class SettleUtil
 
 
     //노티를 성공적으로 수신한 경우 처리할 로직을 작성하여 주세요.
-
+    //결제 완료(outStatCd=0021) 시 호출됩니다.
+    //예시) 주문 상태를 "결제 완료"로 변경, 상품/서비스 제공, 고객에게 결제 완료 안내 등
     public bool NotiSuccess(Dictionary<String, String> noti)
     {
-        //TODO : 관련 로직 추가
+        //TODO : 아래 로직을 가맹점 환경에 맞게 구현하세요.
+        //  - DB에서 상점거래번호(mchtTrdNo)로 주문을 조회하여 상태 업데이트
+        //  - 중복 처리 방지: 이미 처리된 주문인지 확인 후 처리
+        //  - 예) DB Update: 상점거래번호 = noti["상점거래번호"], 거래금액 = noti["거래금액"]
         return true;
     }
 
 
 
     //입금대기시 처리할 로직을 작성하여 주세요.
+    //가상계좌 채번 완료(outStatCd=0051) 시 호출됩니다.
+    //예시) 주문 상태를 "입금 대기"로 변경, 가상계좌번호/입금기한 저장, 고객에게 계좌 안내 등
     public bool NotiWaitingPay(Dictionary<String, String> noti)
     {
-        //TODO : 관련 로직 추가
+        //TODO : 아래 로직을 가맹점 환경에 맞게 구현하세요.
+        //  - DB에서 상점거래번호(mchtTrdNo)로 주문 상태를 "입금 대기"로 업데이트
+        //  - 가상계좌번호(vAcntNo), 입금만료일시(expireDt) 저장
+        //  - 아직 결제가 완료된 것이 아니므로 상품/서비스 제공 금지
         return true;
     }
 
 
 
     //노티 수신중 해시 체크 에러가 생긴 경우 처리할 로직을 작성하여 주세요.
+    //해시 불일치는 데이터 위변조 가능성이 있으므로 반드시 원인을 파악하고 대처해야 합니다.
     public bool NotiHashError(Dictionary<String, String> noti)
     {
-        //TODO : 관련 로직 추가
+        //TODO : 아래 로직을 가맹점 환경에 맞게 구현하세요.
+        //  - 관리자에게 해시 오류 알림 발송 (이메일 등)
+        //  - 오류 로그 기록 (상점거래번호, 수신된 해쉬값 등)
         return false;
     }
 }
