@@ -226,23 +226,23 @@ public partial class authAPI_showResult : System.Web.UI.Page
 
 
         //응답 값 출력
-        Label_mchtId.Text       = respParam["mchtId"];
-        Label_ver.Text          = respParam["ver"];
-        Label_method.Text       = respParam["method"];
-        Label_bizType.Text      = respParam["bizType"];
-        Label_encCd.Text        = respParam["encCd"];
-        Label_mchtTrdNo.Text    = respParam["mchtTrdNo"];
-        Label_trdNo.Text        = respParam["trdNo"];
-        Label_trdDt.Text        = respParam["trdDt"];
-        Label_trdTm.Text        = respParam["trdTm"];
-        Label_outStatCd.Text    = respParam["outStatCd"];
-        Label_outRsltCd.Text    = respParam["outRsltCd"];
-        Label_outRsltMsg.Text   = respParam["outRsltMsg"];
-        Label_pktHash.Text      = respParam["pktHash"];
-        Label_cardNo.Text       = respParam["cardNo"];
-        Label_issrId.Text       = respParam["issrId"];
-        Label_cardNm.Text       = respParam["cardNm"];
-        Label_cardKind.Text     = respParam["cardKind"];
-        Label_billKey.Text      = respParam["billKey"];
+        Label_mchtId.Text       = Server.HtmlEncode(respParam["mchtId"]);
+        Label_ver.Text          = Server.HtmlEncode(respParam["ver"]);
+        Label_method.Text       = Server.HtmlEncode(respParam["method"]);
+        Label_bizType.Text      = Server.HtmlEncode(respParam["bizType"]);
+        Label_encCd.Text        = Server.HtmlEncode(respParam["encCd"]);
+        Label_mchtTrdNo.Text    = Server.HtmlEncode(respParam["mchtTrdNo"]);
+        Label_trdNo.Text        = Server.HtmlEncode(respParam["trdNo"]);
+        Label_trdDt.Text        = Server.HtmlEncode(respParam["trdDt"]);
+        Label_trdTm.Text        = Server.HtmlEncode(respParam["trdTm"]);
+        Label_outStatCd.Text    = Server.HtmlEncode(respParam["outStatCd"]);
+        Label_outRsltCd.Text    = Server.HtmlEncode(respParam["outRsltCd"]);
+        Label_outRsltMsg.Text   = Server.HtmlEncode(respParam["outRsltMsg"]);
+        Label_pktHash.Text      = Server.HtmlEncode(respParam["pktHash"]);
+        Label_cardNo.Text       = Server.HtmlEncode(respParam["cardNo"]);
+        Label_issrId.Text       = Server.HtmlEncode(respParam["issrId"]);
+        Label_cardNm.Text       = Server.HtmlEncode(respParam["cardNm"]);
+        Label_cardKind.Text     = Server.HtmlEncode(respParam["cardKind"]);
+        Label_billKey.Text      = Server.HtmlEncode(respParam["billKey"]);
     }
 }
