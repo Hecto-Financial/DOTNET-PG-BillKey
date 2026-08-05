@@ -222,21 +222,21 @@ public partial class cancel_showResult : System.Web.UI.Page
 
 
         //응답 값 출력
-        Label_mchtId.Text    = respParam["mchtId"];
-        Label_ver.Text       = respParam["ver"];
-        Label_method.Text    = respParam["method"];
-        Label_bizType.Text   = respParam["bizType"];
-        Label_encCd.Text     = respParam["encCd"];
-        Label_mchtTrdNo.Text = respParam["mchtTrdNo"];
-        Label_trdNo.Text     = respParam["trdNo"];
-        Label_trdDt.Text     = respParam["trdDt"];
-        Label_trdTm.Text     = respParam["trdTm"];
-        Label_outStatCd.Text = respParam["outStatCd"];
-        Label_outRsltCd.Text = respParam["outRsltCd"];
-        Label_outRsltMsg.Text= respParam["outRsltMsg"];
-        Label_pktHash.Text   = respParam["pktHash"];
-        Label_orgTrdNo.Text  = respParam["orgTrdNo"];
-        Label_cnclAmt.Text   = respParam["cnclAmt"];
-        Label_blcAmt.Text    = respParam["blcAmt"];
+        Label_mchtId.Text    = Server.HtmlEncode(respParam["mchtId"]);
+        Label_ver.Text       = Server.HtmlEncode(respParam["ver"]);
+        Label_method.Text    = Server.HtmlEncode(respParam["method"]);
+        Label_bizType.Text   = Server.HtmlEncode(respParam["bizType"]);
+        Label_encCd.Text     = Server.HtmlEncode(respParam["encCd"]);
+        Label_mchtTrdNo.Text = Server.HtmlEncode(respParam["mchtTrdNo"]);
+        Label_trdNo.Text     = Server.HtmlEncode(respParam["trdNo"]);
+        Label_trdDt.Text     = Server.HtmlEncode(respParam["trdDt"]);
+        Label_trdTm.Text     = Server.HtmlEncode(respParam["trdTm"]);
+        Label_outStatCd.Text = Server.HtmlEncode(respParam["outStatCd"]);
+        Label_outRsltCd.Text = Server.HtmlEncode(respParam["outRsltCd"]);
+        Label_outRsltMsg.Text= Server.HtmlEncode(respParam["outRsltMsg"]);
+        Label_pktHash.Text   = Server.HtmlEncode(respParam["pktHash"]);
+        Label_orgTrdNo.Text  = Server.HtmlEncode(respParam["orgTrdNo"]);
+        Label_cnclAmt.Text   = Server.HtmlEncode(respParam["cnclAmt"]);
+        Label_blcAmt.Text    = Server.HtmlEncode(respParam["blcAmt"]);
     }
 }
