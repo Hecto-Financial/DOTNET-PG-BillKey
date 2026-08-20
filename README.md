@@ -80,3 +80,7 @@
 - **LOG_FILE**: 일반 거래에 대한 로그 파일명
 - **NOTI_LOG_FILE**: 노티 관련 로그 파일명
 
+## 문의
+
+- 기술 문의: pgsupport@hecto.co.kr
+- 개발 가이드: [헥토파이낸셜 개발자 센터](https://developers.hectofinancial.co.kr)
